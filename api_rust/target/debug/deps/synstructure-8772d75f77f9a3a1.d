@@ -1,0 +1,8 @@
+D:\Farot\Documents\Github\202307820_LAB_P2_SO1_VacJun2026\api_rust\target\debug\deps\synstructure-8772d75f77f9a3a1.d: C:\Users\Farot\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\synstructure-0.13.2\src\lib.rs C:\Users\Farot\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\synstructure-0.13.2\src\macros.rs
+
+D:\Farot\Documents\Github\202307820_LAB_P2_SO1_VacJun2026\api_rust\target\debug\deps\libsynstructure-8772d75f77f9a3a1.rlib: C:\Users\Farot\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\synstructure-0.13.2\src\lib.rs C:\Users\Farot\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\synstructure-0.13.2\src\macros.rs
+
+D:\Farot\Documents\Github\202307820_LAB_P2_SO1_VacJun2026\api_rust\target\debug\deps\libsynstructure-8772d75f77f9a3a1.rmeta: C:\Users\Farot\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\synstructure-0.13.2\src\lib.rs C:\Users\Farot\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\synstructure-0.13.2\src\macros.rs
+
+C:\Users\Farot\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\synstructure-0.13.2\src\lib.rs:
+C:\Users\Farot\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\synstructure-0.13.2\src\macros.rs:

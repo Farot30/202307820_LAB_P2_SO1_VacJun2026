@@ -1,0 +1,39 @@
+services:
+  # 1. Broker de Mensajería: RabbitMQ (con interfaz gráfica habilitada)
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: qm2026_rabbitmq
+    ports:
+      - "5672:5672"   # Puerto para que Go se conecte y envíe mensajes
+      - "15672:15672" # Puerto de la interfaz web de manejo (http://localhost:15672)
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: secret
+    networks:
+      - qm2026_net
+
+  # 2. Base de Datos: Valkey (Fork de Redis)
+  valkey:
+    image: valkey/valkey:latest
+    container_name: qm2026_valkey
+    ports:
+      - "6379:6379" # Puerto estándar (igual que Redis) para que Go inserte datos
+    networks:
+      - qm2026_net
+
+  # 3. Visualización: Grafana
+  grafana:
+    image: grafana/grafana:latest
+    container_name: qm2026_grafana
+    ports:
+      - "3000:3000" # Interfaz web de Grafana (http://localhost:3000)
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin # Contraseña por defecto para ingresar
+    depends_on:
+      - valkey
+    networks:
+      - qm2026_net
+
+networks:
+  qm2026_net:
+    driver: bridge
