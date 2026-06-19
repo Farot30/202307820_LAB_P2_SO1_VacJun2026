@@ -25,7 +25,7 @@ async fn recibir_prediccion(datos: web::Json<Quiniela>) -> impl Responder {
     let mut client = match QuinielaServiceClient::connect("http://127.0.0.1:50051").await {
         Ok(c) => c,
         Err(e) => {
-            eprintln!("❌ Error conectando a Go: {}", e);
+            eprintln!("Error conectando a Go: {}", e);
             return HttpResponse::InternalServerError().finish();
         }
     };
@@ -43,11 +43,11 @@ async fn recibir_prediccion(datos: web::Json<Quiniela>) -> impl Responder {
     // 3. Enviar a Go y esperar respuesta
     match client.enviar_quiniela(request).await {
         Ok(response) => {
-            println!("📡 Respuesta de Go: {}", response.into_inner().message);
+            println!("Respuesta de Go: {}", response.into_inner().message);
             HttpResponse::Ok().json(serde_json::json!({"status": "success"}))
         },
         Err(e) => {
-            eprintln!("❌ Error en gRPC: {}", e);
+            eprintln!("Error en gRPC: {}", e);
             HttpResponse::InternalServerError().finish()
         }
     }
@@ -56,7 +56,7 @@ async fn recibir_prediccion(datos: web::Json<Quiniela>) -> impl Responder {
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     let puerto = 8080;
-    println!("🚀 API Rust corriendo en http://0.0.0.0:{}", puerto);
+    println!("API Rust corriendo en http://0.0.0.0:{}", puerto);
 
     HttpServer::new(|| {
         App::new().service(recibir_prediccion)
