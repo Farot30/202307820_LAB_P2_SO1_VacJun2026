@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+// El nombre del paquete para organizar nuestro código
+package quinielapb;
+
+// Esta línea servirá más adelante cuando generemos el código para Go
+option go_package = "./pb";
+
+// 1. Definimos los datos que Rust le va a ENVIAR a Go
+message QuinielaRequest {
+    string home_team = 1;
+    string away_team = 2;
+    int32 home_goals = 3;
+    int32 away_goals = 4;
+    string username = 5;
+    string timestamp = 6;
+}
+
+// 2. Definimos la respuesta que Go le va a DEVOLVER a Rust
+message QuinielaResponse {
+    bool success = 1;
+    string message = 2;
+}
+
+// 3. Definimos el "Servicio" (las funciones que se pueden llamar)
+service QuinielaService {
+    // Rust llamará a esta función, le enviará el Request y esperará el Response
+    rpc EnviarQuiniela (QuinielaRequest) returns (QuinielaResponse);
+}

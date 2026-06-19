@@ -7,3 +7,11 @@ edition = "2021"
 actix-web = "4.4"
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
+# Nuevas dependencias para gRPC en Rust
+tonic = "0.10"
+prost = "0.12"
+tokio = { version = "1.0", features = ["macros", "rt-multi-thread"] }
+
+[build-dependencies]
+# Esta dependencia compila el .proto antes de correr el código principal
+tonic-build = "0.10"

@@ -1,12 +1,59 @@
-   9.509354900s  INFO prepare_target{force=false package_id=api_rust v0.1.0 (D:\Farot\Documents\Github\202307820_LAB_P2_SO1_VacJun2026\api_rust) target="api_rust"}: cargo::core::compiler::fingerprint: stale: changed "D:\\Farot\\Documents\\Github\\202307820_LAB_P2_SO1_VacJun2026\\api_rust\\src\\main.rs"
-   9.509493200s  INFO prepare_target{force=false package_id=api_rust v0.1.0 (D:\Farot\Documents\Github\202307820_LAB_P2_SO1_VacJun2026\api_rust) target="api_rust"}: cargo::core::compiler::fingerprint:           (vs) "D:\\Farot\\Documents\\Github\\202307820_LAB_P2_SO1_VacJun2026\\api_rust\\target\\debug\\.fingerprint\\api_rust-7c59a5f02f422969\\dep-bin-api_rust"
-   9.509514400s  INFO prepare_target{force=false package_id=api_rust v0.1.0 (D:\Farot\Documents\Github\202307820_LAB_P2_SO1_VacJun2026\api_rust) target="api_rust"}: cargo::core::compiler::fingerprint:                FileTime { seconds: 13426292996, nanos: 365754500 } < FileTime { seconds: 13426294116, nanos: 14177600 }
-   9.546392900s  INFO prepare_target{force=false package_id=api_rust v0.1.0 (D:\Farot\Documents\Github\202307820_LAB_P2_SO1_VacJun2026\api_rust) target="api_rust"}: cargo::core::compiler::fingerprint: fingerprint dirty for api_rust v0.1.0 (D:\Farot\Documents\Github\202307820_LAB_P2_SO1_VacJun2026\api_rust)/Check { test: false }/TargetInner { name: "api_rust", doc: true, ..: with_path("D:\\Farot\\Documents\\Github\\202307820_LAB_P2_SO1_VacJun2026\\api_rust\\src\\main.rs", Edition2021) }
-   9.546526800s  INFO prepare_target{force=false package_id=api_rust v0.1.0 (D:\Farot\Documents\Github\202307820_LAB_P2_SO1_VacJun2026\api_rust) target="api_rust"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleItem(ChangedFile { reference: "D:\\Farot\\Documents\\Github\\202307820_LAB_P2_SO1_VacJun2026\\api_rust\\target\\debug\\.fingerprint\\api_rust-7c59a5f02f422969\\dep-bin-api_rust", reference_mtime: FileTime { seconds: 13426292996, nanos: 365754500 }, stale: "D:\\Farot\\Documents\\Github\\202307820_LAB_P2_SO1_VacJun2026\\api_rust\\src\\main.rs", stale_mtime: FileTime { seconds: 13426294116, nanos: 14177600 } }))
-  13.461994700s  INFO prepare_target{force=false package_id=api_rust v0.1.0 (D:\Farot\Documents\Github\202307820_LAB_P2_SO1_VacJun2026\api_rust) target="api_rust"}: cargo::core::compiler::fingerprint: stale: changed "D:\\Farot\\Documents\\Github\\202307820_LAB_P2_SO1_VacJun2026\\api_rust\\src\\main.rs"
-  13.462038500s  INFO prepare_target{force=false package_id=api_rust v0.1.0 (D:\Farot\Documents\Github\202307820_LAB_P2_SO1_VacJun2026\api_rust) target="api_rust"}: cargo::core::compiler::fingerprint:           (vs) "D:\\Farot\\Documents\\Github\\202307820_LAB_P2_SO1_VacJun2026\\api_rust\\target\\debug\\.fingerprint\\api_rust-a8727ae95c9fda95\\dep-test-bin-api_rust"
-  13.462053900s  INFO prepare_target{force=false package_id=api_rust v0.1.0 (D:\Farot\Documents\Github\202307820_LAB_P2_SO1_VacJun2026\api_rust) target="api_rust"}: cargo::core::compiler::fingerprint:                FileTime { seconds: 13426292996, nanos: 365754500 } < FileTime { seconds: 13426294116, nanos: 14177600 }
-  13.543941300s  INFO prepare_target{force=false package_id=api_rust v0.1.0 (D:\Farot\Documents\Github\202307820_LAB_P2_SO1_VacJun2026\api_rust) target="api_rust"}: cargo::core::compiler::fingerprint: fingerprint dirty for api_rust v0.1.0 (D:\Farot\Documents\Github\202307820_LAB_P2_SO1_VacJun2026\api_rust)/Check { test: true }/TargetInner { name: "api_rust", doc: true, ..: with_path("D:\\Farot\\Documents\\Github\\202307820_LAB_P2_SO1_VacJun2026\\api_rust\\src\\main.rs", Edition2021) }
-  13.544034300s  INFO prepare_target{force=false package_id=api_rust v0.1.0 (D:\Farot\Documents\Github\202307820_LAB_P2_SO1_VacJun2026\api_rust) target="api_rust"}: cargo::core::compiler::fingerprint:     dirty: FsStatusOutdated(StaleItem(ChangedFile { reference: "D:\\Farot\\Documents\\Github\\202307820_LAB_P2_SO1_VacJun2026\\api_rust\\target\\debug\\.fingerprint\\api_rust-a8727ae95c9fda95\\dep-test-bin-api_rust", reference_mtime: FileTime { seconds: 13426292996, nanos: 365754500 }, stale: "D:\\Farot\\Documents\\Github\\202307820_LAB_P2_SO1_VacJun2026\\api_rust\\src\\main.rs", stale_mtime: FileTime { seconds: 13426294116, nanos: 14177600 } }))
+    Blocking waiting for file lock on build directory
+  33.898052400s  INFO prepare_target{force=false package_id=api_rust v0.1.0 (D:\Farot\Documents\Github\202307820_LAB_P2_SO1_VacJun2026\api_rust) target="api_rust"}: cargo::core::compiler::fingerprint: fingerprint error for api_rust v0.1.0 (D:\Farot\Documents\Github\202307820_LAB_P2_SO1_VacJun2026\api_rust)/Check { test: false }/TargetInner { name: "api_rust", doc: true, ..: with_path("D:\\Farot\\Documents\\Github\\202307820_LAB_P2_SO1_VacJun2026\\api_rust\\src\\main.rs", Edition2021) }
+  33.899911400s  INFO prepare_target{force=false package_id=api_rust v0.1.0 (D:\Farot\Documents\Github\202307820_LAB_P2_SO1_VacJun2026\api_rust) target="api_rust"}: cargo::core::compiler::fingerprint:     err: failed to read `D:\Farot\Documents\Github\202307820_LAB_P2_SO1_VacJun2026\api_rust\target\debug\.fingerprint\api_rust-f38bcad82da90f12\bin-api_rust`
+
+Caused by:
+    El sistema no puede encontrar el archivo especificado. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_libgit2_prerelease
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: git_midx_writer_dump
+  17: git_filter_source_repo
+  18: git_midx_writer_dump
+  19: BaseThreadInitThunk
+  20: RtlUserThreadStart
+  34.202741900s  INFO prepare_target{force=false package_id=api_rust v0.1.0 (D:\Farot\Documents\Github\202307820_LAB_P2_SO1_VacJun2026\api_rust) target="api_rust"}: cargo::core::compiler::fingerprint: fingerprint error for api_rust v0.1.0 (D:\Farot\Documents\Github\202307820_LAB_P2_SO1_VacJun2026\api_rust)/Check { test: true }/TargetInner { name: "api_rust", doc: true, ..: with_path("D:\\Farot\\Documents\\Github\\202307820_LAB_P2_SO1_VacJun2026\\api_rust\\src\\main.rs", Edition2021) }
+  34.202813300s  INFO prepare_target{force=false package_id=api_rust v0.1.0 (D:\Farot\Documents\Github\202307820_LAB_P2_SO1_VacJun2026\api_rust) target="api_rust"}: cargo::core::compiler::fingerprint:     err: failed to read `D:\Farot\Documents\Github\202307820_LAB_P2_SO1_VacJun2026\api_rust\target\debug\.fingerprint\api_rust-5a619a4a97e6fcbe\test-bin-api_rust`
+
+Caused by:
+    El sistema no puede encontrar el archivo especificado. (os error 2)
+
+Stack backtrace:
+   0: git_midx_writer_dump
+   1: git_midx_writer_dump
+   2: git_midx_writer_dump
+   3: git_midx_writer_dump
+   4: git_filter_source_repo
+   5: git_filter_source_repo
+   6: git_filter_source_repo
+   7: git_filter_source_repo
+   8: git_filter_source_repo
+   9: git_filter_source_repo
+  10: git_filter_source_repo
+  11: git_libgit2_prerelease
+  12: <unknown>
+  13: <unknown>
+  14: <unknown>
+  15: <unknown>
+  16: git_midx_writer_dump
+  17: git_filter_source_repo
+  18: git_midx_writer_dump
+  19: BaseThreadInitThunk
+  20: RtlUserThreadStart
     Checking api_rust v0.1.0 (D:\Farot\Documents\Github\202307820_LAB_P2_SO1_VacJun2026\api_rust)
-    Finished `dev` profile [unoptimized + debuginfo] target(s) in 24.17s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 35.73s
