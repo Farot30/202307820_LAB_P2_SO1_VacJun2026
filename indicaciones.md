@@ -17,3 +17,7 @@ spawn rate: 1
 docker build -f api_rust/Dockerfile -t mi-api-rust .
 
 ## go server
+docker build -t mi-go-server .
+
+## go consumer
+docker build -t mi-go-consumer .
