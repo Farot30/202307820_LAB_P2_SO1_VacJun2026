@@ -13,4 +13,7 @@ en host http://localhost:8080
 numero de usuario: 2
 spawn rate: 1
 
+## api rust
+docker build -f api_rust/Dockerfile -t mi-api-rust .
 
+## go server
