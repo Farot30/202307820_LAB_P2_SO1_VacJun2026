@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"log"
 	"net"
+	"os"
 
 	amqp "github.com/rabbitmq/amqp091-go"
 	"google.golang.org/grpc"
@@ -49,8 +50,14 @@ func (s *server) EnviarQuiniela(ctx context.Context, req *pb.QuinielaRequest) (*
 }
 
 func main() {
-	// 1. Conectar a RabbitMQ (que está en tu Docker)
-	conn, err := amqp.Dial("amqp://admin:secret@localhost:5672/")
+	// <-- 2. CAMBIO: Leemos la URL desde Kubernetes, si no existe, usamos localhost
+	rabbitURL := os.Getenv("RABBITMQ_URL")
+	if rabbitURL == "" {
+		rabbitURL = "amqp://admin:secret@localhost:5672/"
+	}
+
+	// Conectar a RabbitMQ usando la variable dinámica
+	conn, err := amqp.Dial(rabbitURL)
 	if err != nil {
 		log.Fatalf("Fallo al conectar a RabbitMQ: %v", err)
 	}

@@ -21,3 +21,12 @@ docker build -t mi-go-server .
 
 ## go consumer
 docker build -t mi-go-consumer .
+
+## inicializar instancia de VM
+
+nohup ./zot serve config.json > zot.log 2>&1 &
+
+## probar en la terminal lo de go consumer logs
+kubectl logs go-consumer-xxxx-xxxx
+o
+kubectl logs -l app=go-consumer

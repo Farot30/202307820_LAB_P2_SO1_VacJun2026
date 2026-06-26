@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"os"
 
 	amqp "github.com/rabbitmq/amqp091-go"
 	"github.com/redis/go-redis/v9"
@@ -24,9 +25,13 @@ func main() {
 	ctx := context.Background()
 
 	// 1. Conectar a Valkey (Redis)
+	valkeyAddr := os.Getenv("VALKEY_ADDR")
+	if valkeyAddr == "" {
+		valkeyAddr = "localhost:6379"
+	}
 	valkeyClient := redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
-		Password: "", // No le pusimos password en docker-compose
+		Addr:     valkeyAddr,
+		Password: "",
 		DB:       0,
 	})
 
@@ -37,10 +42,11 @@ func main() {
 	fmt.Println("Conectado a Valkey exitosamente")
 
 	// 2. Conectar a RabbitMQ
-	conn, err := amqp.Dial("amqp://admin:secret@localhost:5672/")
-	if err != nil {
-		log.Fatalf("Error conectando a RabbitMQ: %v", err)
+	rabbitURL := os.Getenv("RABBITMQ_URL")
+	if rabbitURL == "" {
+		rabbitURL = "amqp://admin:secret@localhost:5672/"
 	}
+	conn, err := amqp.Dial(rabbitURL)
 	defer conn.Close()
 
 	ch, err := conn.Channel()

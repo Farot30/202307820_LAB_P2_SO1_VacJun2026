@@ -7,6 +7,7 @@ pub mod quinielapb {
 }
 use quinielapb::quiniela_service_client::QuinielaServiceClient;
 use quinielapb::QuinielaRequest;
+use std::env;
 
 #[derive(Debug, Serialize, Deserialize)]
 struct Quiniela {
@@ -21,8 +22,10 @@ struct Quiniela {
 // TU CARNET AQUÍ
 #[post("/grpc-202307820")]
 async fn recibir_prediccion(datos: web::Json<Quiniela>) -> impl Responder {
+
+    let go_url = env::var("GO_SERVER_URL").unwrap_or_else(|_| "http://127.0.0.1:50051".to_string());
     // 1. Conectarnos al servidor Go
-    let mut client = match QuinielaServiceClient::connect("http://127.0.0.1:50051").await {
+    let mut client = match QuinielaServiceClient::connect(go_url).await {
         Ok(c) => c,
         Err(e) => {
             eprintln!("Error conectando a Go: {}", e);
