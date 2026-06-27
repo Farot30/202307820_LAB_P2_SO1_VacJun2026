@@ -2,7 +2,7 @@ from locust import HttpUser, task, between
 import random
 import datetime
 
-# Equipos aceptados por el proyecto según el enunciado
+# Equipos
 TEAMS = ["GTM", "MEX", "BRA", "ARG", "ESP"]
 
 class MundialUser(HttpUser):
@@ -34,7 +34,6 @@ class MundialUser(HttpUser):
             "username": username,
             "timestamp": timestamp
         }
-
-        # Cambia "/ruta-de-tu-api" por la ruta que expongas luego. 
+ 
         # Si estás en modo local apuntaremos a la API en Rust más adelante.
         self.client.post("/grpc-202307820", json=payload)

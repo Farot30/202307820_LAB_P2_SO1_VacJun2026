@@ -19,7 +19,6 @@ struct Quiniela {
     timestamp: String,
 }
 
-// TU CARNET AQUÍ
 #[post("/grpc-202307820")]
 async fn recibir_prediccion(datos: web::Json<Quiniela>) -> impl Responder {
 

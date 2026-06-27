@@ -27,6 +27,25 @@ docker build -t mi-go-consumer .
 nohup ./zot serve config.json > zot.log 2>&1 &
 
 ## probar en la terminal lo de go consumer logs
-kubectl logs go-consumer-xxxx-xxxx
-o
+
 kubectl logs -l app=go-consumer
+
+## ver servicios en cloud shell y otras cosas
+
+kubectl get services
+
+kubectl get vmi
+
+kubectl get pods
+
+kubectl get svc
+
+kubectl get hpa
+
+## activar la maquina de grafana
+kubectl apply -f grafana.yaml
+
+./virtctl console grafana-vm
+
+## para ver valkey y sus llaves
+kubectl run -i --tty --rm valkey-client --image=valkey/valkey:latest --restart=Never -- valkey-cli -h valkey-service.default -p 6379

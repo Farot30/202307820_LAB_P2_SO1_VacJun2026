@@ -11,7 +11,7 @@ import (
 	"github.com/redis/go-redis/v9"
 )
 
-// Estructura para decodificar el JSON que viene de RabbitMQ
+// Estructura para decodificar el JSON
 type Quiniela struct {
 	HomeTeam  string `json:"home_team"`
 	AwayTeam  string `json:"away_team"`
@@ -35,7 +35,6 @@ func main() {
 		DB:       0,
 	})
 
-	// Probamos conexión a Valkey
 	if err := valkeyClient.Ping(ctx).Err(); err != nil {
 		log.Fatalf("Error conectando a Valkey: %v", err)
 	}
@@ -47,6 +46,9 @@ func main() {
 		rabbitURL = "amqp://admin:secret@localhost:5672/"
 	}
 	conn, err := amqp.Dial(rabbitURL)
+	if err != nil {
+		log.Fatalf("Error conectando a RabbitMQ: %v", err)
+	}
 	defer conn.Close()
 
 	ch, err := conn.Channel()
@@ -55,15 +57,8 @@ func main() {
 	}
 	defer ch.Close()
 
-	// 3. Empezar a consumir los mensajes de la cola "quinielas"
 	mensajes, err := ch.Consume(
-		"quinielas", // nombre de la cola
-		"",          // consumer
-		true,        // auto-ack (le avisa a RabbitMQ que ya lo leímos para que lo borre)
-		false,       // exclusive
-		false,       // no-local
-		false,       // no-wait
-		nil,         // args
+		"quinielas", "", true, false, false, false, nil,
 	)
 	if err != nil {
 		log.Fatalf("Error registrando el consumidor: %v", err)
@@ -71,7 +66,7 @@ func main() {
 
 	fmt.Println("Esperando mensajes de RabbitMQ...")
 
-	// 4. Bucle infinito para leer mensajes
+	// 3. Procesar mensajes
 	for msg := range mensajes {
 		var q Quiniela
 		if err := json.Unmarshal(msg.Body, &q); err != nil {
@@ -81,10 +76,7 @@ func main() {
 
 		fmt.Printf("Procesando quiniela: %s vs %s\n", q.HomeTeam, q.AwayTeam)
 
-		// --- GUARDAR EN VALKEY ---
-
-		// Guardamos la quiniela en un "Stream" de Redis (ideal para series de tiempo en Grafana)
-		// Convertimos todo a un formato llave-valor para Redis
+		// A. Historial completo
 		valores := map[string]interface{}{
 			"home_team":  q.HomeTeam,
 			"away_team":  q.AwayTeam,
@@ -93,20 +85,42 @@ func main() {
 			"username":   q.Username,
 			"timestamp":  q.Timestamp,
 		}
-
-		err = valkeyClient.XAdd(ctx, &redis.XAddArgs{
-			Stream: "predicciones_stream", // Nombre del stream general
+		valkeyClient.XAdd(ctx, &redis.XAddArgs{
+			Stream: "predicciones_stream",
 			Values: valores,
-		}).Err()
+		})
 
-		if err != nil {
-			log.Printf("Error guardando en Valkey: %v", err)
+		// B. Top de usuarios más activos
+		valkeyClient.ZIncrBy(ctx, "top_usuarios", 1, q.Username)
+
+		// C. Top de equipos con más victorias
+		if q.HomeGoals > q.AwayGoals {
+			valkeyClient.ZIncrBy(ctx, "top_victorias", 1, q.HomeTeam)
+		} else if q.AwayGoals > q.HomeGoals {
+			valkeyClient.ZIncrBy(ctx, "top_victorias", 1, q.AwayTeam)
 		}
 
-		// Si el equipo involucrado es GTM (Tu equipo asignado por el carnet 0),
-		// aumentamos un contador específico
-		if q.HomeTeam == "GTM" || q.AwayTeam == "GTM" {
+		// D. Moda de goles
+		valkeyClient.ZIncrBy(ctx, "moda_goles_local", 1, fmt.Sprintf("%d", q.HomeGoals))
+		valkeyClient.ZIncrBy(ctx, "moda_goles_visitante", 1, fmt.Sprintf("%d", q.AwayGoals))
+
+		// E. Rangos (Mayor y Menor cantidad de goles)
+		valkeyClient.ZAdd(ctx, "rango_goles_local", redis.Z{Score: float64(q.HomeGoals), Member: fmt.Sprintf("%d", q.HomeGoals)})
+		valkeyClient.ZAdd(ctx, "rango_goles_visitante", redis.Z{Score: float64(q.AwayGoals), Member: fmt.Sprintf("%d", q.AwayGoals)})
+
+		// F. Estadísticas específicas del equipo GTM (Guatemala)
+		if q.HomeTeam == "GTM" {
 			valkeyClient.Incr(ctx, "total_predicciones_GTM")
+			valkeyClient.XAdd(ctx, &redis.XAddArgs{
+				Stream: "stream_gtm_local",
+				Values: map[string]interface{}{"goles": q.HomeGoals, "timestamp": q.Timestamp},
+			})
+		} else if q.AwayTeam == "GTM" {
+			valkeyClient.Incr(ctx, "total_predicciones_GTM")
+			valkeyClient.XAdd(ctx, &redis.XAddArgs{
+				Stream: "stream_gtm_visitante",
+				Values: map[string]interface{}{"goles": q.AwayGoals, "timestamp": q.Timestamp},
+			})
 		}
 	}
 }
