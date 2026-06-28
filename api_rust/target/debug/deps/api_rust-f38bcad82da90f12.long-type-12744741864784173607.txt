@@ -1,0 +1,1 @@
+fn(Json<Quiniela>) -> impl std::future::Future<Output = impl Responder> {recibir_prediccion}: HttpServiceFactory

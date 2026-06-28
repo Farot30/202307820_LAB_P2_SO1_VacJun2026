@@ -49,3 +49,12 @@ kubectl apply -f grafana.yaml
 
 ## para ver valkey y sus llaves
 kubectl run -i --tty --rm valkey-client --image=valkey/valkey:latest --restart=Never -- valkey-cli -h valkey-service.default -p 6379
+
+## trabajar con Ngrok
+
+curl -O https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz
+tar -xvzf ngrok-v3-stable-linux-amd64.tgz
+
+./ngrok config add-authtoken
+
+./ngrok http 5000

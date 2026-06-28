@@ -1,4 +1,4 @@
-use actix_web::{post, web, App, HttpResponse, HttpServer, Responder};
+use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
 use serde::{Deserialize, Serialize};
 
 // Importamos el código gRPC auto-generado
@@ -17,6 +17,11 @@ struct Quiniela {
     away_goals: u32,
     username: String,
     timestamp: String,
+}
+
+#[get("/")]
+async fn health_check() -> impl Responder {
+    HttpResponse::Ok().body("API Rust funcionando correctamente")
 }
 
 #[post("/grpc-202307820")]
@@ -61,7 +66,7 @@ async fn main() -> std::io::Result<()> {
     println!("API Rust corriendo en http://0.0.0.0:{}", puerto);
 
     HttpServer::new(|| {
-        App::new().service(recibir_prediccion)
+        App::new().service(health_check).service(recibir_prediccion)
     })
     .bind(("0.0.0.0", puerto))?
     .run()

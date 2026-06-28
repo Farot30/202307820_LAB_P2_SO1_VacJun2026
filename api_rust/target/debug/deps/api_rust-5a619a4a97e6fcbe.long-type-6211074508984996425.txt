@@ -1,0 +1,2 @@
+fn(actix_web::web::Json<Quiniela>) -> impl std::future::Future<Output = impl Responder> {recibir_prediccion}
+fn(actix_web::web::Json<Quiniela>) -> impl std::future::Future<Output = impl Responder> {recibir_prediccion}: HttpServiceFactory
