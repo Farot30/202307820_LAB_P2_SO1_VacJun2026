@@ -42,10 +42,13 @@ kubectl get svc
 
 kubectl get hpa
 
-## activar la maquina de grafana
-kubectl apply -f grafana.yaml
+kubectl apply -f apps.yaml
+
+## entrar a la maquina de grafana
 
 ./virtctl console grafana-vm
+
+tail -f /var/log/cloud-init-output.log
 
 ## para ver valkey y sus llaves
 kubectl run -i --tty --rm valkey-client --image=valkey/valkey:latest --restart=Never -- valkey-cli -h valkey-service.default -p 6379
@@ -55,6 +58,33 @@ kubectl run -i --tty --rm valkey-client --image=valkey/valkey:latest --restart=N
 curl -O https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz
 tar -xvzf ngrok-v3-stable-linux-amd64.tgz
 
+dayroom-outlying-magnifier.ngrok-free.dev
+
 ./ngrok config add-authtoken
 
 ./ngrok http 5000
+
+## hacer push 
+
+docker push dayroom-outlying-magnifier.ngrok-free.dev/mi-api-rust:latest
+
+docker push dayroom-outlying-magnifier.ngrok-free.dev/mi-go-consumer:v3
+
+docker push dayroom-outlying-magnifier.ngrok-free.dev/mi-go-server:latest
+
+kubectl get gateway
+
+## limpiar valkey
+kubectl run limpiador-db --rm -it --image=redis:alpine -- redis-cli -h valkey-service FLUSHALL
+kubectl delete pod limpiador-db --force --grace-period=0
+
+kubectl run explorador-db --rm -it --image=redis:alpine -- redis-cli -h valkey-service
+
+KEYS *
+
+XREVRANGE predicciones_stream + - COUNT 3
+
+ZREVRANGE top_usuarios 0 5 WITHSCORES
+
+
+ kubectl describe pod go-server-7dcd64dcbb-7rlcq   | grep -i "image"

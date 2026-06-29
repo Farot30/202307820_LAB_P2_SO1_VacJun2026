@@ -57,6 +57,45 @@ func main() {
 	}
 	defer ch.Close()
 
+	_, err = ch.QueueDeclare(
+		"quinielas", // name
+		true,        // durable
+		false,       // delete when unused
+		false,       // exclusive
+		false,       // no-wait
+		nil,         // arguments
+	)
+	if err != nil {
+		log.Fatalf("Error declarando la cola: %v", err)
+	}
+
+	// 2. Declaramos el Exchange para Dapr
+	err = ch.ExchangeDeclare(
+		"quinielas", // name
+		"fanout",    // kind
+		true,        // durable
+		false,       // autoDelete
+		false,       // internal
+		false,       // noWait
+		nil,         // args
+	)
+	if err != nil {
+		log.Fatalf("Error declarando el exchange: %v", err)
+	}
+
+	// 3. Vinculamos la cola al Exchange
+	err = ch.QueueBind(
+		"quinielas", // queue name
+		"",          // routing key
+		"quinielas", // exchange
+		false,
+		nil,
+	)
+	if err != nil {
+		log.Fatalf("Error vinculando la cola: %v", err)
+	}
+
+	// 4. Consumimos los mensajes
 	mensajes, err := ch.Consume(
 		"quinielas", "", true, false, false, false, nil,
 	)
