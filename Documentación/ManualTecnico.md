@@ -199,3 +199,10 @@ El microservicio Go Consumer actúa como Suscriptor. Para recibir los eventos ge
 Gracias a esto, cualquier evento publicado por Dapr en el Exchange es automáticamente enrutado a la cola, donde el consumidor lo extrae de forma asíncrona, lo procesa y lo inserta en la base de datos Valkey.
 
 ![](capturas/cap8.PNG)
+
+
+## prueba de 2 replicas
+
+Al escalar a 2 réplicas, observamos que el balanceador de carga de Kubernetes repartió las peticiones de gRPC. El CPU promedio por pod bajó a 15%, y los mensajes ingresaron a RabbitMQ de forma mucho más fluida sin crear cuellos de botella.
+
+![](capturas/cap9.PNG)

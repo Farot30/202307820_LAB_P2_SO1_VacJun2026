@@ -3,7 +3,6 @@ syntax = "proto3";
 // El nombre del paquete para organizar nuestro código
 package quinielapb;
 
-// Esta línea servirá más adelante cuando generemos el código para Go
 option go_package = "./pb";
 
 // 1. Definimos los datos que Rust le va a ENVIAR a Go

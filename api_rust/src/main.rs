@@ -59,7 +59,6 @@ async fn recibir_prediccion(datos: web::Json<Quiniela>) -> impl Responder {
 
 #[post("/dapr-202307820")]
 async fn recibir_prediccion_dapr(datos: web::Json<Quiniela>) -> impl Responder {
-    // La URL local del sidecar de Dapr que inyectamos con las anotaciones en el YAML
     // "rabbitmq-pubsub" es el nombre del componente y "quinielas" es la cola
     let dapr_url = "http://localhost:3500/v1.0/publish/rabbitmq-pubsub/quinielas?metadata.rawPayload=true";
     
@@ -92,7 +91,7 @@ async fn main() -> std::io::Result<()> {
         App::new()
             .service(health_check)
             .service(recibir_prediccion)
-            .service(recibir_prediccion_dapr) // Registramos la nueva ruta de Dapr
+            .service(recibir_prediccion_dapr)
     })
     .bind(("0.0.0.0", puerto))?
     .run()

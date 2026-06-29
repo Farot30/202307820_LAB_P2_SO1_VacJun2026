@@ -100,4 +100,27 @@ curl -i -X POST http://34.130.237.145/grpc-202307820 -H "Content-Type: applicati
   "timestamp": "2023-10-25T12:00:00Z"
 }'
 
+http://136.69.5.15
 
+## comandos de calificación
+kubectl get pods -A
+kubectl get deployments -A
+kubectl get services -A
+kubectl get hpa -A
+
+kubectl get gateway -A
+kubectl get httproute -A
+kubectl describe gateway api-gateway -n default
+
+kubectl logs -l app=api-rust -c api-rust -f
+kubectl logs -l app=api-rust -c daprd -f
+
+kubectl logs -l app=go-server -f
+
+kubectl logs -l app=rabbitmq -f
+
+kubectl logs -l app=go-consumer -f
+
+kubectl get vmi -A
+
+kubectl scale deployment go-server --replicas=2
