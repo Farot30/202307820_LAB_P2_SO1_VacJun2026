@@ -35,6 +35,11 @@ El ciclo de vida de un dato dentro del clúster sigue este flujo exacto:
 7. **Visualización:** Grafana se conecta directamente a Valkey para consultar las estadísticas en tiempo real y mostrarlas en dashboards interactivos.
 
 ![](capturas/cap2.png)
+
+### diagrama despliegue
+
+![](capturas/despliegue.png)
+
 ---
 
 ## 3. Configuración de Gateway API (Rust)
