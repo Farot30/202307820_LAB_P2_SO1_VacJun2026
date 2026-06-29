@@ -76,6 +76,7 @@ kubectl get gateway
 
 ## limpiar valkey
 kubectl run limpiador-db --rm -it --image=redis:alpine -- redis-cli -h valkey-service FLUSHALL
+
 kubectl delete pod limpiador-db --force --grace-period=0
 
 kubectl run explorador-db --rm -it --image=redis:alpine -- redis-cli -h valkey-service
@@ -87,4 +88,16 @@ XREVRANGE predicciones_stream + - COUNT 3
 ZREVRANGE top_usuarios 0 5 WITHSCORES
 
 
- kubectl describe pod go-server-7dcd64dcbb-7rlcq   | grep -i "image"
+kubectl describe pod go-server-7dcd64dcbb-7rlcq   | grep -i "image"
+
+
+curl -i -X POST http://34.130.237.145/grpc-202307820 -H "Content-Type: application/json" -d '{
+  "home_team": "GTM",
+  "away_team": "MEX",
+  "home_goals": 3,
+  "away_goals": 5,
+  "username": "tester_dapr",
+  "timestamp": "2023-10-25T12:00:00Z"
+}'
+
+

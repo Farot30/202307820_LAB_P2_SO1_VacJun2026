@@ -120,6 +120,11 @@ Para replicar este proyecto desde cero, siga los siguientes pasos:
     * Actualizar el archivo apps.yaml con la nueva URL de Ngrok y aplicar configuraciones en GKE en la cual apps.yaml puede tener la siguiente forma:
     ```bash
     kubectl apply -f apps.yaml
+    kubectl apply -f dapr-rabbitmq.yaml
+    kubectl apply -f gateway.yaml
+    kubectl apply -f grafana-vm-perfecto.yaml
+    kubectl apply -f rabbitmq.yaml
+    kubectl apply -f valkey-vm.yaml
     ```
     * Aplicar el autoscaler:
     ```bash
@@ -135,7 +140,7 @@ Para replicar este proyecto desde cero, siga los siguientes pasos:
 
     * Ejecutar la prueba:
     ```bash
-    locust -f locustfile.py --host=http://[IP-DEL-GATEWAY]
+    locust -f locustfile.py
     ```
 
 ---
